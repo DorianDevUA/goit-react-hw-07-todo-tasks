@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../redux/tasks/actions';
+import { addTask } from '../../redux/actions';
 import { Field, StyledForm } from './TaskForm.styled';
 
 const TaskForm = () => {

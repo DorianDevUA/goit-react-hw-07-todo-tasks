@@ -5,8 +5,8 @@ export const addTask = title => {
     type: 'tasks/addTask',
     payload: {
       id: nanoid(),
-      completed: false,
       title,
+      completed: false,
     },
   };
 };
@@ -22,5 +22,12 @@ export const toggleCompleted = taskId => {
   return {
     type: 'tasks/toggleCompleted',
     payload: taskId,
+  };
+};
+
+export const setStatusFilter = status => {
+  return {
+    type: 'filters/setStatusFilter',
+    payload: status,
   };
 };

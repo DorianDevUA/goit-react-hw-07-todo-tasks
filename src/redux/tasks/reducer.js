@@ -6,7 +6,7 @@ const tasksInitialState = [
   { id: 4, title: 'Build amazing apps', completed: false },
 ];
 
-const tasksReducer = (state = tasksInitialState, action) => {
+export const tasksReducer = (state = tasksInitialState, action) => {
   switch (action.type) {
     case 'tasks/addTask':
       return [...state, action.payload];
@@ -30,5 +30,3 @@ const tasksReducer = (state = tasksInitialState, action) => {
       return state;
   }
 };
-
-export default tasksReducer;
