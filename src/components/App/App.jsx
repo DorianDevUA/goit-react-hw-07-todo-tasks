@@ -1,7 +1,6 @@
 import Layout from '../Layout';
 import TaskForm from '../TaskForm';
 import TaskList from '../TaskList';
-import tasks from '../../tasks.json';
 import AppBar from '../AppBar';
 
 const App = () => {
@@ -9,7 +8,7 @@ const App = () => {
     <Layout>
       <AppBar />
       <TaskForm />
-      <TaskList tasks={tasks} />
+      <TaskList />
     </Layout>
   );
 };
