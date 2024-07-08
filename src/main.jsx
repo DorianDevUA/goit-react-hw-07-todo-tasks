@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
 import { ThemeProvider } from 'styled-components';
-import { theme } from './constants/theme';
+import { theme } from './constants';
+
 import 'modern-normalize';
-import GlobalStyle from './styles/GlobalStele';
+import { GlobalStyle } from './styles';
 
 import App from './components/App';
 

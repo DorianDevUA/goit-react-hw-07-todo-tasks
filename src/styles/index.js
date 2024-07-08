@@ -1,1 +1,1 @@
-export { default } from './GlobalStele';
+export { default as GlobalStyle } from './GlobalStele';
