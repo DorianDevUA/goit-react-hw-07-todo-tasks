@@ -26,9 +26,9 @@ const TaskCounter = () => {
 
   return (
     <div>
-      <Text>All: {count.all}</Text>
       <Text>Active: {count.active}</Text>
       <Text>Completed: {count.completed}</Text>
+      <Text>All Tasks: {count.all}</Text>
     </div>
   );
 };
