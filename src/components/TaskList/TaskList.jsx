@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { statusFilters } from '../../redux/constants';
-import { getStatusFilter, getTasks } from '../../redux/selectors';
+import { getTasks } from '../../redux/tasksSlice';
+import { getStatusFilter } from '../../redux/filtersSlice';
 import Task from '../Task';
 import { ToDoItem, ToDoList } from './TaskList.styled';
 

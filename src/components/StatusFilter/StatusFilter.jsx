@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { statusFilters } from '../../redux/constants';
-import { getStatusFilter } from '../../redux/selectors';
-import { setStatusFilter } from '../../redux/actions';
+import { getStatusFilter, setStatusFilter } from '../../redux/filtersSlice';
 import Button from '../Button';
 import { Wrapper } from './StatusFilter.styled';
 
@@ -9,8 +8,8 @@ const StatusFilter = () => {
   const filter = useSelector(getStatusFilter);
   const dispatch = useDispatch();
 
-  const handleFilterChange = filter => {
-    dispatch(setStatusFilter(filter));
+  const handleFilterChange = status => {
+    dispatch(setStatusFilter({ status }));
   };
 
   return (

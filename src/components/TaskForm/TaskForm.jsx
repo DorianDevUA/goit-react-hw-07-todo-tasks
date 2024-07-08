@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../redux/actions';
+import { addTask } from '../../redux/tasksSlice';
 import { Field, StyledForm } from './TaskForm.styled';
 
 const TaskForm = () => {
@@ -7,11 +7,11 @@ const TaskForm = () => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
+
     const form = evt.target;
+    const taskTitle = form.elements.text.value;
 
-    console.log(form.elements.text.value);
-    dispatch(addTask(form.elements.text.value));
-
+    dispatch(addTask({ taskTitle }));
     form.reset();
   };
 
