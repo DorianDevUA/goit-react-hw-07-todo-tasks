@@ -13,19 +13,29 @@ const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTask(state, action) {
-      state.push({
-        id: nanoid(),
-        title: action.payload.taskTitle,
-        completed: false,
-      });
+    addTask(state, { payload }) {
+      return [
+        ...state,
+        {
+          id: nanoid(),
+          title: payload.taskTitle,
+          completed: false,
+        },
+      ];
     },
     deleteTask(state, action) {
       return state.filter(task => task.id !== action.payload.id);
     },
     toggleCompleted(state, action) {
-      const toggledTask = state.find(task => task.id === action.payload.id);
-      toggledTask.completed = !toggledTask.completed;
+      return state.map(task => {
+        if (task.id !== action.payload.id) {
+          return task;
+        }
+        return {
+          ...task,
+          completed: !task.completed,
+        };
+      });
     },
   },
 });
