@@ -1,15 +1,18 @@
+import { Route, Routes } from 'react-router-dom';
 import Layout from 'components/Layout';
-import AppBar from 'components/AppBar';
-import TaskForm from 'components/TaskForm';
-import TaskList from 'components/TaskList';
+import HomePage from 'pages/HomePage';
+import TasksPage from 'pages/TasksPage';
 
 const App = () => {
   return (
-    <Layout>
-      <AppBar />
-      <TaskForm />
-      <TaskList />
-    </Layout>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="tasks" element={<TasksPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
