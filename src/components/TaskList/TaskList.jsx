@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import { statusFilters } from '../../redux/constants';
-import { getTasks } from '../../redux/tasksSlice';
-import { getStatusFilter } from '../../redux/filtersSlice';
-import Task from '../Task';
+import { statusFilters } from 'constants';
+import { getTasks } from 'redux/tasksSlice';
+import { getStatusFilter } from 'redux/filtersSlice';
+import Task from 'components/Task';
 import { ToDoItem, ToDoList } from './TaskList.styled';
 
 const getVisibleTasks = (tasks, statusFilter) => {

@@ -1,7 +1,7 @@
-import Layout from '../Layout';
-import TaskForm from '../TaskForm';
-import TaskList from '../TaskList';
-import AppBar from '../AppBar';
+import Layout from 'components/Layout';
+import AppBar from 'components/AppBar';
+import TaskForm from 'components/TaskForm';
+import TaskList from 'components/TaskList';
 
 const App = () => {
   return (

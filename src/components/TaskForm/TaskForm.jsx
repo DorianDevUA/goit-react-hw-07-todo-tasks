@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../redux/tasksSlice';
+import { addTask } from 'redux/tasksSlice';
 import { Field, StyledForm } from './TaskForm.styled';
 
 const TaskForm = () => {

@@ -1,5 +1,5 @@
-import StatusFilter from '../StatusFilter';
-import TaskCounter from '../TaskCounter';
+import StatusFilter from 'components/StatusFilter';
+import TaskCounter from 'components/TaskCounter';
 import { Section, Title, Wrapper } from './AppBar.styled';
 
 const AppBar = () => {
