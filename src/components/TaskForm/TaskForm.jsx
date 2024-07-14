@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from 'redux/tasksSlice';
+import { addTask } from 'redux/operations';
 import { Field, StyledForm } from './TaskForm.styled';
 
 const TaskForm = () => {
@@ -9,9 +9,9 @@ const TaskForm = () => {
     evt.preventDefault();
 
     const form = evt.target;
-    const taskTitle = form.elements.text.value;
+    const title = form.elements.text.value;
 
-    dispatch(addTask({ taskTitle }));
+    dispatch(addTask(title));
     form.reset();
   };
 
