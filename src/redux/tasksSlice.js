@@ -1,47 +1,86 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
+import {
+  fetchAllTasks,
+  addTask,
+  deleteTask,
+  toggleCompletedTask,
+} from './operations';
 
-const initialState = [
-  { id: 0, title: 'Learn HTML and CSS', completed: true },
-  { id: 1, title: 'Get good at JavaScript', completed: true },
-  { id: 2, title: 'Master React', completed: false },
-  { id: 3, title: 'Discover Redux', completed: false },
-  { id: 4, title: 'Build amazing apps', completed: false },
-];
+const initialState = {
+  items: [],
+  isLoading: false,
+  error: null,
+};
+
+const handlePending = state => {
+  return {
+    ...state,
+    isLoading: true,
+  };
+};
+
+const handleRejected = (state, { payload }) => {
+  return {
+    ...state,
+    error: payload,
+    isLoading: false,
+  };
+};
 
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
-  reducers: {
-    addTask(state, { payload }) {
-      return [
-        ...state,
-        {
-          id: nanoid(),
-          title: payload.taskTitle,
-          completed: false,
-        },
-      ];
-    },
-    deleteTask(state, action) {
-      return state.filter(task => task.id !== action.payload.id);
-    },
-    toggleCompleted(state, action) {
-      return state.map(task => {
-        if (task.id !== action.payload.id) {
-          return task;
-        }
+  extraReducers: builder => {
+    builder
+      .addCase(fetchAllTasks.pending, handlePending)
+      .addCase(fetchAllTasks.fulfilled, (state, { payload }) => {
         return {
-          ...task,
-          completed: !task.completed,
+          ...state,
+          items: payload,
+          error: null,
+          isLoading: false,
         };
-      });
-    },
+      })
+      .addCase(fetchAllTasks.rejected, handleRejected)
+
+      .addCase(addTask.pending, handlePending)
+      .addCase(addTask.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          items: [...state.items, payload],
+          error: null,
+          isLoading: false,
+        };
+      })
+      .addCase(addTask.rejected, handleRejected)
+
+      .addCase(deleteTask.pending, handlePending)
+      .addCase(deleteTask.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          items: state.items.filter(item => item.id !== payload.id),
+          error: null,
+          isLoading: false,
+        };
+      })
+      .addCase(deleteTask.rejected, handleRejected)
+
+      .addCase(toggleCompletedTask.pending, handlePending)
+      .addCase(toggleCompletedTask.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          items: state.items.map(item => {
+            if (item.id !== payload.id) {
+              return item;
+            }
+            return payload;
+          }),
+          error: null,
+          isLoading: false,
+        };
+      })
+      .addCase(toggleCompletedTask.rejected, handleRejected);
   },
 });
-
-export const { addTask, deleteTask, toggleCompleted } = tasksSlice.actions;
-
-export const getTasks = state => state.tasks;
 
 export default tasksSlice.reducer;
