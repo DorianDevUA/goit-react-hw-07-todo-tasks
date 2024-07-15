@@ -17,7 +17,7 @@ const {
   handleFulfilledToggleCompletedTask,
 } = taskHandlers;
 
-const thunks = [
+const arrThunks = [
   fetchAllTasksThunk,
   addTaskThunk,
   deleteTaskThunk,
@@ -30,7 +30,7 @@ const STATUS = {
   REJECTED: 'rejected',
 };
 
-const fn = type => thunks.map(thunk => thunk[type]);
+const fn = type => arrThunks.map(thunk => thunk[type]);
 
 const tasksSlice = createSlice({
   name: 'tasks',
