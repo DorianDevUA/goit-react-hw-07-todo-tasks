@@ -7,6 +7,7 @@ import filtersReducer from './filtersSlice';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: 'tasks',
 };
 
 export const rootReducer = combineReducers({
