@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux';
-import { deleteTask, toggleCompletedTask } from 'redux/operations';
+import { deleteTaskThunk, toggleCompletedTaskThunk } from 'redux/operations';
 import { CheckBox, IconBtn, Title, Wrapper } from './Task.styled';
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
 
-  const handleToggle = () => dispatch(toggleCompletedTask(task));
-  const handleDelete = () => dispatch(deleteTask(task.id));
+  const handleToggle = () => dispatch(toggleCompletedTaskThunk(task));
+  const handleDelete = () => dispatch(deleteTaskThunk(task.id));
 
   return (
     <Wrapper>

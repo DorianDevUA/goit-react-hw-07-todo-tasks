@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addTask } from 'redux/operations';
+import { addTaskThunk } from 'redux/operations';
 import { Field, StyledForm } from './TaskForm.styled';
 
 const TaskForm = () => {
@@ -11,7 +11,7 @@ const TaskForm = () => {
     const form = evt.target;
     const title = form.elements.text.value;
 
-    dispatch(addTask(title));
+    dispatch(addTaskThunk(title));
     form.reset();
   };
 

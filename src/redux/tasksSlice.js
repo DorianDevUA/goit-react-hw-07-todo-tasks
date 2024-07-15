@@ -1,85 +1,57 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
-  fetchAllTasks,
-  addTask,
-  deleteTask,
-  toggleCompletedTask,
+  fetchAllTasksThunk,
+  addTaskThunk,
+  deleteTaskThunk,
+  toggleCompletedTaskThunk,
 } from './operations';
+import taskHandlers from './tasksHandlers';
 
-const initialState = {
-  items: [],
-  isLoading: false,
-  error: null,
+const {
+  handlePending,
+  handleRejected,
+  handleFulfilled,
+  handleFulfilledAllTasks,
+  handleFullfildAddTask,
+  handleFulfilledDeleteTask,
+  handleFulfilledToggleCompletedTask,
+} = taskHandlers;
+
+const thunks = [
+  fetchAllTasksThunk,
+  addTaskThunk,
+  deleteTaskThunk,
+  toggleCompletedTaskThunk,
+];
+
+const STATUS = {
+  PENDING: 'pending',
+  FULFILLED: 'fulfilled',
+  REJECTED: 'rejected',
 };
 
-const handlePending = state => {
-  return {
-    ...state,
-    isLoading: true,
-  };
-};
-
-const handleRejected = (state, { payload }) => {
-  return {
-    ...state,
-    error: payload,
-    isLoading: false,
-  };
-};
+const fn = type => thunks.map(thunk => thunk[type]);
 
 const tasksSlice = createSlice({
   name: 'tasks',
-  initialState,
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   extraReducers: builder => {
+    const { PENDING, FULFILLED, REJECTED } = STATUS;
     builder
-      .addCase(fetchAllTasks.pending, handlePending)
-      .addCase(fetchAllTasks.fulfilled, (state, { payload }) => {
-        return {
-          ...state,
-          items: payload,
-          error: null,
-          isLoading: false,
-        };
-      })
-      .addCase(fetchAllTasks.rejected, handleRejected)
-
-      .addCase(addTask.pending, handlePending)
-      .addCase(addTask.fulfilled, (state, { payload }) => {
-        return {
-          ...state,
-          items: [...state.items, payload],
-          error: null,
-          isLoading: false,
-        };
-      })
-      .addCase(addTask.rejected, handleRejected)
-
-      .addCase(deleteTask.pending, handlePending)
-      .addCase(deleteTask.fulfilled, (state, { payload }) => {
-        return {
-          ...state,
-          items: state.items.filter(item => item.id !== payload.id),
-          error: null,
-          isLoading: false,
-        };
-      })
-      .addCase(deleteTask.rejected, handleRejected)
-
-      .addCase(toggleCompletedTask.pending, handlePending)
-      .addCase(toggleCompletedTask.fulfilled, (state, { payload }) => {
-        return {
-          ...state,
-          items: state.items.map(item => {
-            if (item.id !== payload.id) {
-              return item;
-            }
-            return payload;
-          }),
-          error: null,
-          isLoading: false,
-        };
-      })
-      .addCase(toggleCompletedTask.rejected, handleRejected);
+      .addCase(fetchAllTasksThunk.fulfilled, handleFulfilledAllTasks)
+      .addCase(addTaskThunk.fulfilled, handleFullfildAddTask)
+      .addCase(deleteTaskThunk.fulfilled, handleFulfilledDeleteTask)
+      .addCase(
+        toggleCompletedTaskThunk.fulfilled,
+        handleFulfilledToggleCompletedTask,
+      )
+      .addMatcher(isAnyOf(...fn(PENDING)), handlePending)
+      .addMatcher(isAnyOf(...fn(FULFILLED)), handleFulfilled)
+      .addMatcher(isAnyOf(...fn(REJECTED)), handleRejected);
   },
 });
 
